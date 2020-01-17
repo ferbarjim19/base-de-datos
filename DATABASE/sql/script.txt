@@ -1,0 +1,66 @@
+##############
+#SCRIPT MYSQL#
+##############
+
+CREATE TABLE provincia
+(id_provincia INT,
+ nombre VARCHAR (20) NOT NULL,
+ CONSTRAINT pk_id_prov PRIMARY KEY (id_provincia)
+);
+
+CREATE TABLE departamento
+(id_departamento INT,
+ nombre VARCHAR(20) DEFAULT 'Nuevo',
+ presupuesto FLOAT CHECK (presupuesto BETWEEN 1000 AND 1500),
+ provincia_departamento VARCHAR(20),
+ id_prov INT,
+ CONSTRAINT pk_id_dep PRIMARY KEY (id_departamento),
+ CONSTRAINT fk_id_prov FOREIGN KEY (id_prov) REFERENCES provincia(id_provincia)
+ );
+ 
+ CREATE TABLE trabajador 
+(id_trabajador INT,
+ nombre VARCHAR(20),
+ salario FLOAT,
+ comision FLOAT,
+ provincia_nacimiento VARCHAR(20),
+ id_dep INT,
+ id_provi INT,
+ CONSTRAINT pk_id_trab PRIMARY KEY (id_trabajador),
+ CONSTRAINT fk_id_dep FOREIGN KEY (id_dep) REFERENCES departamento(id_departamento),
+ CONSTRAINT fk_id_provi FOREIGN KEY (id_provi) REFERENCES provincia(id_provincia)
+ )
+
+###############
+#SCRIPT ORACLE#
+###############
+
+CREATE TABLE provincia
+(id_provincia NUMBER,
+ nombre VARCHAR2 (20) NOT NULL,
+ CONSTRAINT pk_id_prov PRIMARY KEY (id_provincia)
+);
+
+CREATE TABLE departamento
+(id_departamento NUMBER,
+ nombre VARCHAR2(20) DEFAULT 'Nuevo',
+ presupuesto NUMBER(6,2),
+ provincia_departamento VARCHAR(20),
+ id_prov NUMBER,
+ CONSTRAINT pk_id_dep PRIMARY KEY (id_departamento),
+ CONSTRAINT fk_id_prov FOREIGN KEY (id_prov) REFERENCES provincia(id_provincia),
+ CONSTRAINT ck_pres CHECK (presupuesto BETWEEN 1000 AND 1500)
+ );
+ 
+ CREATE TABLE trabajador 
+(id_trabajador NUMBER,
+ nombre VARCHAR2(20),
+ salario NUMBER(6,2),
+ comision NUMBER(6,2),
+ provincia_nacimiento VARCHAR2(20),
+ id_dep NUMBER,
+ id_provi NUMBER,
+ CONSTRAINT pk_id_trab PRIMARY KEY (id_trabajador),
+ CONSTRAINT fk_id_dep FOREIGN KEY (id_dep) REFERENCES departamento(id_departamento),
+ CONSTRAINT fk_id_provi FOREIGN KEY (id_provi) REFERENCES provincia(id_provincia)
+ )
